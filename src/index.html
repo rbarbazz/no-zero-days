@@ -12,12 +12,12 @@
     <link rel="stylesheet" href="style.css" />
     <script src="script.js" type="module"></script>
   </head>
-  <body class="bg-gray-100">
-    <div class="max-w-screen-sm mx-auto px-10">
-      <h1 class="text-center text-4xl font-bold mb-4 py-10">No Zero Days 🎯</h1>
+  <body class="bg-slate-100">
+    <div class="max-w-screen-sm mx-auto p-10">
+      <h1 class="text-center text-4xl font-bold mb-10">No Zero Days 🎯</h1>
       <p class="text-lg pb-4">
-        Record the number of pages read each day and track your progress.
-        Remember, one is better than none!
+        Record the number of pages you read each day and track your progress.
+        Remember that one is better than none!
       </p>
       <div x-data="progress">
         <ul x-data="lastSevenDays" class="space-y-2">
@@ -78,5 +78,13 @@
         </ul>
       </div>
     </div>
+    <footer class="flex flex-col items-center space-y-4">
+      <p class="text-center text-sm">
+        Your progress is saved locally in your browser.
+      </p>
+      <a href="https://github.com/rbarbazz/no-zero-days" target="_blank">
+        <img class="h-6 w-6" src="github-mark.svg" alt="" />
+      </a>
+    </footer>
   </body>
 </html>
