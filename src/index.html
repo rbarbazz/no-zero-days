@@ -13,9 +13,29 @@
     <script src="script.js" type="module"></script>
   </head>
   <body>
-    <div class="h-dvh" x-data="{ open: false }">
-      <button @click="open = !open">Open/Close</button>
-      <div x-show="open">Hello world!</div>
+    <div>
+      <h1>No Zero Days</h1>
+      <p>Record the number of pages read each day.</p>
+    </div>
+    <div x-data="progress">
+      <ul x-data="lastSevenDays">
+        <template x-for="day in days">
+          <li x-data="{ day, value: getValue(day) }">
+            <span class="block w-6 h-6 rounded-full bg-black"></span>
+            <label
+              x-bind:for="'pages-input' + formatDate(day)"
+              x-text="formatDate(day)"
+            ></label>
+            <input
+              type="number"
+              x-bind:id="'pages-input' + formatDate(day)"
+              min="0"
+              x-model="value"
+            />
+            <button @click="addRecord(day, value)">Add</button>
+          </li>
+        </template>
+      </ul>
     </div>
   </body>
 </html>
