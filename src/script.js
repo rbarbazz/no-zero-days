@@ -24,7 +24,7 @@ Alpine.data('progress', function () {
   return {
     records: this.$persist({}),
 
-    addRecord(day, value) {
+    upsertRecord(day, value) {
       this.records[day] = parseInt(value)
     },
 

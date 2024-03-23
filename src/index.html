@@ -12,30 +12,71 @@
     <link rel="stylesheet" href="style.css" />
     <script src="script.js" type="module"></script>
   </head>
-  <body>
-    <div>
-      <h1>No Zero Days</h1>
-      <p>Record the number of pages read each day.</p>
-    </div>
-    <div x-data="progress">
-      <ul x-data="lastSevenDays">
-        <template x-for="day in days">
-          <li x-data="{ day, value: getValue(day) }">
-            <span class="block w-6 h-6 rounded-full bg-black"></span>
-            <label
-              x-bind:for="'pages-input' + formatDate(day)"
-              x-text="formatDate(day)"
-            ></label>
-            <input
-              type="number"
-              x-bind:id="'pages-input' + formatDate(day)"
-              min="0"
-              x-model="value"
-            />
-            <button @click="addRecord(day, value)">Add</button>
-          </li>
-        </template>
-      </ul>
+  <body class="bg-gray-100">
+    <div class="max-w-screen-sm mx-auto px-10">
+      <h1 class="text-center text-4xl font-bold mb-4 py-10">No Zero Days 🎯</h1>
+      <p class="text-lg pb-4">
+        Record the number of pages read each day and track your progress.
+        Remember, one is better than none!
+      </p>
+      <div x-data="progress">
+        <ul x-data="lastSevenDays" class="space-y-2">
+          <template x-for="day in days">
+            <li
+              x-data="{ day, value: getValue(day) }"
+              class="flex justify-between items-center bg-white p-4 rounded-md shadow-sm"
+            >
+              <div class="flex items-center">
+                <svg
+                  x-show="value > 0"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6 text-green-600"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"
+                  />
+                </svg>
+                <svg
+                  x-show="value <= 0"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6 text-red-600"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                  />
+                </svg>
+                <label
+                  :for="'pages-input' + formatDate(day)"
+                  x-text="formatDate(day)"
+                  class="font-medium ml-4"
+                ></label>
+              </div>
+              <div class="flex items-center space-x-4">
+                <input
+                  type="number"
+                  :id="'pages-input' + formatDate(day)"
+                  min="0"
+                  x-model="value"
+                  @input.debounce="upsertRecord(day, value)"
+                  class="border-2 border-gray-200 rounded-md p-2 max-w-24"
+                />
+              </div>
+            </li>
+          </template>
+        </ul>
+      </div>
     </div>
   </body>
 </html>
