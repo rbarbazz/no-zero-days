@@ -31,6 +31,19 @@ Alpine.data('progress', function () {
     getValue(day) {
       return this.records[day] || 0
     },
+
+    getCurrentStreak() {
+      let streak = []
+      let day = new Date()
+      day.setHours(0, 0, 0, 0)
+
+      while (this.records[getTime(day)]) {
+        streak.push(getTime(day))
+        day = subDays(day, 1)
+      }
+
+      return streak
+    },
   }
 })
 
